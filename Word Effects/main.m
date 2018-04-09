@@ -15,7 +15,7 @@ int main(int argc, const char * argv[]) {
     {
         //Take a number from user 1- 6
         char numchoice[3];
-        printf("Input a number 1 - 6: ");
+        printf("Input a number 1 - 9: ");
         // limit input to max 255 character
         fgets(numchoice,3,stdin);
     
@@ -27,8 +27,8 @@ int main(int argc, const char * argv[]) {
         fgets(inputChars,255,stdin);
         
         // convert char array to an NSString object
-        NSString *inputNum = [NSString stringWithUTF8String:numchoice];
-        NSString *inputString = [NSString stringWithUTF8String:inputChars];
+        NSMutableString *inputNum = [NSMutableString stringWithUTF8String:numchoice];
+        NSMutableString *inputString = [NSMutableString stringWithUTF8String:inputChars];
     
         NSInteger userNum = [inputNum intValue];
         
@@ -54,8 +54,8 @@ int main(int argc, const char * argv[]) {
                 break;
             case 4:
             {
-               NSString *canadian = @"eh";
-                NSString *result = [inputString stringByAppendingString:canadian];
+               NSMutableString *canadian = [@"eh" mutableCopy];
+               NSMutableString *result = [[inputString stringByAppendingString:canadian]mutableCopy];
                 NSLog(@"%@", result);
             }
                 break;
@@ -73,9 +73,34 @@ int main(int argc, const char * argv[]) {
                 break;
             case 6:
             {
-                NSString * newString = [inputString stringByReplacingOccurrencesOfString:@" " withString:@"-"];
+                NSMutableString * newString = [[inputString stringByReplacingOccurrencesOfString:@" " withString:@"-"]mutableCopy];
                 
                 NSLog(@"%@",newString);
+            }
+                break;
+            case 7:
+            {
+                //Print first 5 letters of string
+                NSRange range = NSMakeRange(0,5);
+                NSString *first5Letters = [inputString substringWithRange:range];
+                NSLog(@"%@",first5Letters);
+            }
+                break;
+            case 8:
+            {
+                //Print string letters on new line
+                for(NSInteger i = 0; i < inputString.length; ++i)
+                {
+                    NSRange range = NSMakeRange(i, 1);
+                    NSString *result = [inputString substringWithRange:range];
+                    NSLog(@"%d\t%@", __LINE__, result);
+                }
+            }
+            case 9:
+            {
+                //Print number of letters in string
+                NSInteger stringCount = inputString.length - 1;
+                NSLog(@"%ld",stringCount);
             }
                 break;
             default:
